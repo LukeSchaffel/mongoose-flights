@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1>Flight Number <%= flight.flightNo  %>  </h1>
+  <section>
+    <div>Airline:</div>
+    <div><%= flight.airline %> </div>
+    <div>Airport:</div>
+    <div><%= flight.airport %></div>
+    <div>Flight Number:</div>
+    <div><%= flight.flightNo %></div>
+    <div>Departs At:</div>
+    <div><%= flight.departs %></div>
+  </section>
+
+  <h2>Tickets</h2>
+  
+  <form 
+    id="add-ticket-form"
+    action="/flights/<%= flight._id %>/tickets"
+    method="POST"
+  >
+  <label for="seat-textarea">Seat: (required pattern: [A-F][1-9])</label>
+  <input name="seat" required pattern="[A-F][1-9]\d?">
+  <label for="price">Price:</label>
+  <input name="price" type="number" min="0">
+  <button type="submit">Add Ticket</button>
+
+  </form>
+
+  <% if (flight.tickets.length) { %>
+  <table>
+    <thead>
+      <tr>
+        <th>Seat</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+  <tbody>
+    <% flight.tickets.forEach(function(ticket){ %> 
+    <tr>
+      <td><%= ticket.seat %></td>
+      <td><%= ticket.price %></td>
+    </tr>
+    <% }) %> 
+  </tbody>
+  </table>
+    
+
+  <% } else { %>
+    <h3>No Tickets Yet</h3>
+    <% } %> 
+  
+</body>
+</html>
+
