@@ -13,7 +13,9 @@ function index(req, res) {
 }
 
 function newMovie(req, res) {
-  res.render('flights/new')
+  res.render('flights/new', {
+    title: "Add New Flight"
+  })
 }
 
 function create(req, res) {
