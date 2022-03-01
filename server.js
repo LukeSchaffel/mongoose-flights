@@ -10,6 +10,7 @@ import("./config/database.js")
 // import routers
 import { router as indexRouter } from './routes/index.js'
 import { router as flightsRouter } from './routes/flights.js'
+import methodOverride from "method-override"
 
 // set up app
 const app = express()
@@ -30,6 +31,8 @@ app.use(
     path.join(path.dirname(fileURLToPath(import.meta.url)), 'public')
   )
 )
+
+app.use(methodOverride("_method"))
 
 // mounted routers
 app.use('/', indexRouter)

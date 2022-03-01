@@ -5,7 +5,9 @@ function index(req, res) {
     console.log(error);
     res.render("flights/index", {
       error: error,
-      flights: flights
+      flights: flights,
+      title: "All Flights"
+
     })
   })
 }
@@ -30,6 +32,7 @@ function show(req, res) {
   Flight.findById(req.params.id, function (err, flight) {
     res.render("flights/show", {
       flight: flight,
+      title: `Flight ${flight._id}`
       
     })
   })
@@ -44,12 +47,19 @@ function createTicket(req, res) {
   })
 }
 
+function deleteFlight(req, res){
+  Flight.findByIdAndDelete(req.params.id, function (err, flight) {
+    res.redirect("/flights")
+  })
+}
+
 
 export {
   index,
   newMovie as new,
   create,
   show,
-  createTicket
+  createTicket,
+  deleteFlight as delete,
 
 }
