@@ -45,9 +45,9 @@
   action="/flights/<%= flight._id %>/meals"
   method="post"
   >
-  <select>
+  <select name="mealId">
     <% meals.forEach(meal => { %>
-      <option><%= meal.name %> </option>
+      <option value="<%= meal._id  %>"><%= meal.name %> </option>
       
       <% }) %> 
     </select>

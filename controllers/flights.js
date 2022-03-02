@@ -65,7 +65,7 @@ function deleteFlight(req, res){
 
 function addToMeals(req, res) {
   Flight.findById(req.params.id, function (err, flight) {
-    // console.log(req.body.id);
+
     flight.meals.push(req.body.mealId)
     flight.save(function (err) {
       res.redirect(`/flights/${flight._id}`)
