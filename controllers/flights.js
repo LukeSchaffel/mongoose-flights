@@ -1,4 +1,5 @@
 import { Flight } from "../models/flight.js"
+import { Meal } from "../models/meal.js"
 
 function index(req, res) {
   Flight.find({}, function (error, flights){
@@ -31,14 +32,21 @@ function create(req, res) {
   
 
 function show(req, res) {
-  Flight.findById(req.params.id, function (err, flight) {
-    res.render("flights/show", {
-      flight: flight,
-      title: `Flight ${flight._id}`
-      
+  Flight.findById(req.params.id) 
+  .populate('meals')
+  .exec(function (err, flight) {
+    Meal.find({}, function (err, meals){
+      res.render("flights/show", {
+        flight: flight,
+        title: `Flight ${flight._id}`,
+        meals,
+        
+      })
     })
+    
   })
 }
+
 
 function createTicket(req, res) {
   Flight.findById(req.params.id, function (err, flight) {
@@ -55,6 +63,16 @@ function deleteFlight(req, res){
   })
 }
 
+function addToMeals(req, res) {
+  Flight.findById(req.params.id, function (err, flight) {
+    // console.log(req.body.id);
+    flight.meals.push(req.body.mealId)
+    flight.save(function (err) {
+      res.redirect(`/flights/${flight._id}`)
+    })
+  })
+}
+
 
 export {
   index,
@@ -63,5 +81,6 @@ export {
   show,
   createTicket,
   deleteFlight as delete,
+  addToMeals
 
 }

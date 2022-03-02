@@ -14,8 +14,49 @@
     <div><%= flight.departs %></div>
   </section>
 
-  <h2>Tickets</h2>
+  <h2>Meals</h2>
+
+  <% if (flight.meals.length) { %>
+    <table>
+      <thead>
+        <tr>
+          <th>Meal</th>
+        </tr>
+      </thead>
+    <tbody>
+      <% flight.meals.forEach(function(meal){ %> 
+      <tr>
+        <td><%= meal.name %></td>
+      </tr>
+      <% }) %> 
+    </tbody>
+    </table>
+      
   
+    <% } else { %>
+      <h3>No Meals Yet</h3>
+      <% } %> 
+
+
+
+
+  <form 
+  id="add-meal-form"
+  action="/flights/<%= flight._id %>/meals"
+  method="post"
+  >
+  <select>
+    <% meals.forEach(meal => { %>
+      <option><%= meal.name %> </option>
+      
+      <% }) %> 
+    </select>
+    <button type="submit">Add Meal</button>
+  </form>
+  
+  
+  <h2>Tickets</h2>
+
   <form 
     id="add-ticket-form"
     action="/flights/<%= flight._id %>/tickets"
